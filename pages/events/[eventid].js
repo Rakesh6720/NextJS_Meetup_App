@@ -5,6 +5,7 @@ import EventLogistics from "../../components/event-detail/event-logistics";
 import EventContent from "../../components/event-detail/event-content";
 import ErrorAlert from "../../components/ui/error-alert";
 import Button from "../../components/ui/button";
+import { getFeaturedEvents } from "../../dummy-data";
 
 function EventDetailPage(props) {
   const event = props.selectedEvent;
@@ -16,10 +17,9 @@ function EventDetailPage(props) {
   if (!event) {
     return (
       <>
-        <ErrorAlert>
-          <p style={childStyle}>No event found!</p>
-          <Button link="/events">Show All Events</Button>
-        </ErrorAlert>
+        <div className="center">
+          <p style={childStyle}>Loading...</p>
+        </div>
       </>
     );
   }
@@ -51,7 +51,7 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-  const events = await getAllEvents();
+  const events = await getFeaturedEvents();
 
   const paths = events.map((event) => ({
     params: { eventId: event.id },
@@ -59,7 +59,7 @@ export async function getStaticPaths() {
 
   return {
     paths: paths,
-    fallback: false,
+    fallback: "blocking",
   };
 }
 export default EventDetailPage;
