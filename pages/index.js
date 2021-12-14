@@ -2,7 +2,7 @@ import EventList from "../components/events/event-list";
 import { getFeaturedEvents } from "../helpers/api-util";
 
 function Homepage(props) {
-  const featuredEvents = getFeaturedEvents();
+  //const featuredEvents = getFeaturedEvents();
   return (
     <div>
       <EventList items={props.events} />
